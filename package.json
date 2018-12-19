@@ -1,13 +1,15 @@
 {
-  "name": "ml5",
+  "name": "mlproject",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
+    "start": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "ml5": "^0.1.3",
     "vue": "^2.5.17"
   },
   "devDependencies": {
