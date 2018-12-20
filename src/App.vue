@@ -19,6 +19,10 @@
 <script>
 /*IDEAS
 Voice Transcription
+Image Recognition:
+-Chemistry/Physics (elements, velocity of collision)
+
+
 
 */
 import HelloWorld from "./components/HelloWorld.vue";
