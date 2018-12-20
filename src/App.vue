@@ -22,7 +22,7 @@ Voice Transcription
 Image Recognition:
 -Chemistry/Physics (elements, velocity of collision)
 -Show and TEll (modeldepot)
-
+-Image colorization (modeldepot)
 
 */
 import HelloWorld from "./components/HelloWorld.vue";
