@@ -17,6 +17,10 @@
 </template>
 
 <script>
+/*IDEAS
+Voice Transcription
+
+*/
 import HelloWorld from "./components/HelloWorld.vue";
 
 export default {
