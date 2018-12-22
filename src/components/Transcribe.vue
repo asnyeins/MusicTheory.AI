@@ -14,7 +14,8 @@ export default {
         return {
             modelReady: false,
             model: null,
-            visualizer: null
+            visualizer: null,
+            player: null
         };
     },
     mounted: function() {
@@ -38,14 +39,30 @@ export default {
             document.getElementById("loaded").style.display = "block";
         },
         async transcribeFile(file) {
+            const config = {
+                noteHeight: 15,
+                pixelsPerTimeStep: 20, // like a note width
+                noteSpacing: 10,
+                noteRGB: "100, 100, 0",
+                activeNoteRGB: "240, 84, 119"
+            };
             await this.model
                 .transcribeFromAudioFile(file)
                 .then(noteSequence => {
                     this.visualizer = new mm.Visualizer(
                         noteSequence,
-                        document.getElementById("canvas")
+                        document.getElementById("canvas"),
+                        config
                     );
                 });
+        },
+        playNotes() {
+            this.player = new mm.Player(false, {
+                run: note => this.visualizer.redraw(note),
+                stop: () => {
+                    console.log("done");
+                }
+            });
         }
     }
 };
@@ -53,4 +70,8 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
+.container {
+    background: #2a3942;
+    margin-top: 50px;
+}
 </style>
