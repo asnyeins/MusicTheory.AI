@@ -1,9 +1,13 @@
 <template>
     <div class="container">
-        <p id="loading">Loading Model..</p>
-        <p id="loaded" style="display: none">Loaded</p>
-        <input id="file-input" type="file">
-        <canvas id="canvas"></canvas>
+        <div class="header">
+            <input id="file-input" type="file">
+            <p id="loading">Loading Model..</p>
+            <p id="loaded" style="display: none">Loaded</p>
+        </div>
+        <div class="player">
+            <canvas id="canvas"></canvas>
+        </div>
     </div>
 </template>
 
@@ -40,10 +44,10 @@ export default {
         },
         async transcribeFile(file) {
             const config = {
-                noteHeight: 15,
+                noteHeight: 8,
                 pixelsPerTimeStep: 20, // like a note width
                 noteSpacing: 10,
-                noteRGB: "100, 100, 0",
+                noteRGB: "234, 234, 236",
                 activeNoteRGB: "240, 84, 119"
             };
             await this.model
@@ -71,7 +75,22 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 .container {
-    background: #2a3942;
+    background: #22313a;
     margin-top: 50px;
+    padding: 0;
+}
+.player {
+    background: #2a3942;
+    width: 100%;
+}
+.header {
+    text-align: center;
+    height: 100px;
+    padding: 15px;
+}
+#canvas {
+    display: block;
+    width: 90% !important;
+    margin: auto;
 }
 </style>

@@ -29,7 +29,7 @@ body {
     height: 100%;
 }
 #app {
-    background: #1e2b32;
+    background: #192329;
     height: 100%;
     position: relative;
     overflow: hidden;
