@@ -72,25 +72,24 @@ export default {
 };
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
+<style lang="scss" scoped>
 .container {
     background: #22313a;
     margin-top: 50px;
     padding: 0;
-}
-.player {
-    background: #2a3942;
-    width: 100%;
-}
-.header {
-    text-align: center;
-    height: 100px;
-    padding: 15px;
-}
-#canvas {
-    display: block;
-    width: 90% !important;
-    margin: auto;
+    .player {
+        background: #2a3942;
+        width: 100%;
+        #canvas {
+            display: block;
+            width: 90% !important;
+            margin: auto;
+        }
+    }
+    .header {
+        text-align: center;
+        height: 100px;
+        padding: 15px;
+    }
 }
 </style>
