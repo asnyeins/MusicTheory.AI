@@ -19,6 +19,9 @@
             </div>
         </div>
         <div class="player">
+            <div class="introduction" :style="introductionHandler">
+                <p>This app uses neural networks run through the browser for all of its functionality. Upload a file of a music piece to get started.</p>
+            </div>
             <div class="visualizerLoader" :style="loadHandler">
                 <v-progress-circular
                     class="visualizerLoadingCircle"
@@ -36,7 +39,6 @@
                     >Larger files will take longer to transcribe, and may be taxing on your system</span>
                 </p>
             </div>
-
             <canvas id="canvas"></canvas>
         </div>
     </div>
@@ -51,6 +53,7 @@ export default {
             model: null,
             uploadLoading: false,
             loadHandler: "display: none",
+            introductionHandler: "",
             fileName: "",
             loader: null,
             visualizer: null,
@@ -86,6 +89,7 @@ export default {
                 activeNoteRGB: "240, 84, 119"
             };
             this.uploadLoading = !this.uploadLoading;
+            this.introductionHandler = "display: none";
             this.loadHandler = "display: block";
             await this.model
                 .transcribeFromAudioFile(file)
@@ -122,6 +126,13 @@ export default {
         width: 100%;
         height: 300px;
         padding: 40px 0;
+        .introduction {
+            text-align: center;
+            font-size: 20px;
+            width: 60%;
+            margin: auto;
+            font-weight: 300;
+        }
         .visualizerLoader {
             text-align: center;
             .visualizerLoadingCircle {
