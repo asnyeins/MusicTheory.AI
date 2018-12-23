@@ -86,6 +86,7 @@ export default {
     .player {
         background: #2a3942;
         width: 100%;
+        height: 500px;
         #canvas {
             display: block;
             width: 90% !important;
@@ -108,6 +109,7 @@ export default {
                 height: 100%;
                 position: absolute;
                 opacity: 0;
+                // color: rgb(87, 52, 55)
             }
         }
     }
