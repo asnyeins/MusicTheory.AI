@@ -1,9 +1,16 @@
 <template>
     <div class="container">
         <div class="header">
-            <input id="file-input" type="file">
+            <!-- <input id="file-input" type="file"> -->
             <p id="loading">Loading Model..</p>
-            <p id="loaded" style="display: none">Loaded</p>
+            <div id="loaded">
+                <v-btn depressed color="primary">
+                    Upload File
+                    <input type="file" id="file-input">
+                </v-btn>
+                <p>or</p>
+                <v-btn depressed color="primary">Record Audio</v-btn>
+            </div>
         </div>
         <div class="player">
             <canvas id="canvas"></canvas>
@@ -33,14 +40,13 @@ export default {
     },
     methods: {
         initUI() {
-            const fileInput = document.getElementById("file-input");
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("loaded").style.display = "block";
 
+            const fileInput = document.getElementById("file-input");
             fileInput.addEventListener("change", e => {
                 this.transcribeFile(e.target.files[0]);
             });
-
-            document.getElementById("loading").style.display = "none";
-            document.getElementById("loaded").style.display = "block";
         },
         async transcribeFile(file) {
             const config = {
@@ -90,6 +96,20 @@ export default {
         text-align: center;
         height: 100px;
         padding: 15px;
+        #loaded {
+            display: none;
+            div,
+            p {
+                display: inline-block;
+                margin: 20px;
+            }
+            #file-input {
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                opacity: 0;
+            }
+        }
     }
 }
 </style>

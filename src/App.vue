@@ -1,6 +1,8 @@
 <template>
     <div id="app">
-        <Transcribe/>
+        <v-app class="vueWrap" dark>
+            <Transcribe/>
+        </v-app>
     </div>
 </template>
 
@@ -24,9 +26,13 @@ export default {
 </script>
 
 <style>
+@import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600");
+
 html,
-body {
+body,
+.application {
     height: 100%;
+    font-family: "Open Sans", sans-serif !important;
 }
 #app {
     background: #192329;
