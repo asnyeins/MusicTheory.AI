@@ -19,6 +19,24 @@
             </div>
         </div>
         <div class="player">
+            <div class="visualizerLoader" :style="loadHandler">
+                <v-progress-circular
+                    class="visualizerLoadingCircle"
+                    :size="70"
+                    :width="7"
+                    color="#a53a45"
+                    indeterminate
+                ></v-progress-circular>
+                <p>
+                    Transcribing
+                    <span class="fileName">{{fileName}}</span>...
+                    <br>
+                    <span
+                        class="cpuWarning"
+                    >Larger files will take longer to transcribe, and may be taxing on your system</span>
+                </p>
+            </div>
+
             <canvas id="canvas"></canvas>
         </div>
     </div>
@@ -32,6 +50,8 @@ export default {
             modelReady: false,
             model: null,
             uploadLoading: false,
+            loadHandler: "display: none",
+            fileName: "",
             loader: null,
             visualizer: null,
             player: null
@@ -54,6 +74,7 @@ export default {
             const fileInput = document.getElementById("file-input");
             fileInput.addEventListener("change", e => {
                 this.transcribeFile(e.target.files[0]);
+                this.fileName = e.target.files[0].name;
             });
         },
         async transcribeFile(file) {
@@ -65,6 +86,7 @@ export default {
                 activeNoteRGB: "240, 84, 119"
             };
             this.uploadLoading = !this.uploadLoading;
+            this.loadHandler = "display: block";
             await this.model
                 .transcribeFromAudioFile(file)
                 .then(noteSequence => {
@@ -73,6 +95,7 @@ export default {
                         document.getElementById("canvas"),
                         config
                     );
+                    this.loadHandler = "display: none";
                     this.uploadLoading = !this.uploadLoading;
                 });
         },
@@ -99,6 +122,24 @@ export default {
         width: 100%;
         height: 300px;
         padding: 40px 0;
+        .visualizerLoader {
+            text-align: center;
+            .visualizerLoadingCircle {
+                margin-top: 20px;
+            }
+            p {
+                font-size: 19px;
+                margin-top: 30px;
+                font-weight: 300;
+                .fileName {
+                    color: #8c363f;
+                }
+                .cpuWarning {
+                    font-size: 17px;
+                    opacity: 0.7;
+                }
+            }
+        }
         #canvas {
             display: block;
             width: 90% !important;
