@@ -82,14 +82,17 @@ export default {
 .container {
     background: #22313a;
     margin-top: 50px;
+    width: 1000px;
     padding: 0;
     .player {
         background: #2a3942;
         width: 100%;
-        height: 500px;
+        height: 300px;
+        padding: 40px 0;
         #canvas {
             display: block;
             width: 90% !important;
+            height: 100% !important;
             margin: auto;
         }
     }
