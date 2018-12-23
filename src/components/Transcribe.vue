@@ -4,8 +4,14 @@
             <!-- <input id="file-input" type="file"> -->
             <p id="loading">Loading Model..</p>
             <div id="loaded">
-                <v-btn depressed color="primary">
+                <v-btn
+                    depressed
+                    color="primary"
+                    :loading="this.uploadLoading"
+                    :disabled="this.uploadLoading"
+                >
                     Upload File
+                    <span slot="loader">Loading...</span>
                     <input type="file" id="file-input">
                 </v-btn>
                 <p>or</p>
@@ -25,6 +31,8 @@ export default {
         return {
             modelReady: false,
             model: null,
+            uploadLoading: false,
+            loader: null,
             visualizer: null,
             player: null
         };
@@ -56,6 +64,7 @@ export default {
                 noteRGB: "234, 234, 236",
                 activeNoteRGB: "240, 84, 119"
             };
+            this.uploadLoading = !this.uploadLoading;
             await this.model
                 .transcribeFromAudioFile(file)
                 .then(noteSequence => {
@@ -64,6 +73,7 @@ export default {
                         document.getElementById("canvas"),
                         config
                     );
+                    this.uploadLoading = !this.uploadLoading;
                 });
         },
         playNotes() {
