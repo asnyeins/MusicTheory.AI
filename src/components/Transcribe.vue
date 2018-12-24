@@ -9,6 +9,7 @@
                     color="primary"
                     :loading="this.uploadLoading"
                     :disabled="this.uploadLoading"
+                    class="uploadButton"
                 >
                     Upload File
                     <span slot="loader">Loading...</span>
@@ -23,20 +24,21 @@
                 <p>This app uses neural networks run through the browser for all of its functionality. Upload a file of a music piece to get started.</p>
             </div>
             <div class="visualizerLoader" :style="loadHandler">
-                <v-progress-circular
+                <!-- <v-progress-circular
                     class="visualizerLoadingCircle"
                     :size="70"
                     :width="7"
                     color="#a53a45"
                     indeterminate
-                ></v-progress-circular>
+                ></v-progress-circular>-->
+                <v-progress-circular class="visualizerLoadingCircle" indeterminate color="primary"></v-progress-circular>
                 <p>
                     Transcribing
                     <span class="fileName">{{fileName}}</span>...
                     <br>
                     <span
                         class="cpuWarning"
-                    >Larger files will take longer to transcribe, and may be taxing on your system</span>
+                    >Larger files will take longer to transcribe, and may slow down your browser.</span>
                 </p>
             </div>
             <canvas id="canvas"></canvas>
@@ -169,12 +171,20 @@ export default {
                 display: inline-block;
                 margin: 20px;
             }
-            #file-input {
-                width: 100%;
-                height: 100%;
-                position: absolute;
-                opacity: 0;
-                // color: rgb(87, 52, 55)
+            .uploadButton {
+                // padding: 0;
+                // margin: 0;
+                #file-input {
+                    padding: 18px 60px;
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    opacity: 0;
+                    // color: rgb(87, 52, 55)
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
             }
         }
     }
