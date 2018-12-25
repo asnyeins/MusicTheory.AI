@@ -27,7 +27,7 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600");
-@import url("https://fonts.googleapis.com/css?family=Poppins");
+@import url("https://fonts.googleapis.com/css?family=Poppins:100,200,300,400,500");
 
 html,
 body,

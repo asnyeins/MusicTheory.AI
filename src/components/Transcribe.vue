@@ -7,11 +7,16 @@
                 </span>MusicTheory.ai
             </p>
         </div>
-        <div class="player">
+        <div
+            class="player"
+            id="player"
+            @mouseover="playerHovered = !playerHovered"
+            @mouseout="playerHovered = !playerHovered"
+        >
             <p id="loading">Loading Model..</p>
             <div id="loaded">
                 <div class="introduction" :style="introductionHandler">
-                    <p>Upload an audio file and it will show up here!</p>
+                    <p>Upload an audio file!</p>
                     <!-- <v-btn
                         depressed
                         round
@@ -23,9 +28,7 @@
                         Upload File
                         <span slot="loader">Loading...</span>
                         <input type="file" id="file-input">
-                    </v-btn>
-                    <p>or</p>
-                    <v-btn round depressed color="primary">Record Audio</v-btn>-->
+                    </v-btn>-->
                     <v-btn outline large fab color="primary" class="uploadButton">
                         <v-icon>add</v-icon>
                         <div class="inputWrapper">
@@ -53,7 +56,20 @@
                     >Larger files will take longer to transcribe, and may slow down your browser.</span>
                 </p>
             </div>
-            <canvas id="canvas"></canvas>
+            <div class="canvasWrap" :style="canvasHandler">
+                <canvas id="canvas"></canvas>
+                <v-btn
+                    outline
+                    class="playButton"
+                    fab
+                    dark
+                    large
+                    color="primary"
+                    v-if="playerHovered"
+                >
+                    <v-icon dark>play_arrow</v-icon>
+                </v-btn>
+            </div>
         </div>
     </div>
 </template>
@@ -70,8 +86,10 @@ export default {
             introductionHandler: "",
             fileName: "",
             loader: null,
+            canvasHandler: "display: none",
             visualizer: null,
-            player: null
+            player: null,
+            playerHovered: false
         };
     },
     mounted: function() {
@@ -108,6 +126,7 @@ export default {
             await this.model
                 .transcribeFromAudioFile(file)
                 .then(noteSequence => {
+                    this.canvasHandler = "display: block";
                     this.visualizer = new mm.Visualizer(
                         noteSequence,
                         document.getElementById("canvas"),
@@ -153,6 +172,7 @@ export default {
         width: 100%;
         height: 300px;
         padding: 40px 0;
+        transition: 0.25s;
         #loading {
             text-align: center;
         }
@@ -170,6 +190,10 @@ export default {
                 width: 60%;
                 margin: auto;
                 font-weight: 300;
+                p {
+                    font-size: 16px;
+                    font-weight: 300;
+                }
                 .uploadButton {
                     i {
                         font-size: 40px;
@@ -220,11 +244,24 @@ export default {
                 }
             }
         }
-        #canvas {
-            display: block;
-            width: 90% !important;
-            height: 100% !important;
+        .canvasWrap {
+            width: 90%;
+            height: 100%;
             margin: auto;
+
+            #canvas {
+                display: block;
+                width: 100% !important;
+                height: 100% !important;
+            }
+            .playButton {
+                position: absolute;
+                // top: 50%;
+                // left: 50%;
+                // transform: translate(-50%, -50%);
+                top: 240px;
+                right: 47.5%;
+            }
         }
     }
 }
