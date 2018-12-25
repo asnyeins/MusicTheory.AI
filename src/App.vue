@@ -27,12 +27,13 @@ export default {
 
 <style>
 @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Poppins");
 
 html,
 body,
 .application {
     height: 100%;
-    font-family: "Open Sans", sans-serif !important;
+    font-family: "Poppins", sans-serif !important;
 }
 #app {
     background: #192329;

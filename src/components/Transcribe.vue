@@ -6,6 +6,7 @@
             <div id="loaded">
                 <v-btn
                     depressed
+                    round
                     color="primary"
                     :loading="this.uploadLoading"
                     :disabled="this.uploadLoading"
@@ -16,7 +17,7 @@
                     <input type="file" id="file-input">
                 </v-btn>
                 <p>or</p>
-                <v-btn depressed color="primary">Record Audio</v-btn>
+                <v-btn round depressed color="primary">Record Audio</v-btn>
             </div>
         </div>
         <div class="player">
@@ -122,6 +123,7 @@ export default {
     background: #22313a;
     margin-top: 50px;
     width: 1000px;
+    border-radius: 15px;
     padding: 0;
     .player {
         background: #2a3942;
@@ -146,6 +148,7 @@ export default {
                 font-weight: 300;
                 .fileName {
                     color: #8c363f;
+                    color: #952aa3;
                 }
                 .cpuWarning {
                     font-size: 17px;
