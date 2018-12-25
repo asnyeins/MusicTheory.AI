@@ -1,34 +1,34 @@
 <template>
     <div class="container">
         <div class="header">
-            <!-- <input id="file-input" type="file"> -->
-            <p id="loading">Loading Model..</p>
-            <div id="loaded">
-                <p>
-                    <span>
-                        <v-icon color="purple">queue_music</v-icon>
-                    </span>MusicTheory.ai
-                </p>
-            </div>
+            <p>
+                <span>
+                    <v-icon color="purple">queue_music</v-icon>
+                </span>MusicTheory.ai
+            </p>
         </div>
         <div class="player">
-            <div class="introduction" :style="introductionHandler">
-                <p>Upload an audio file and it will show up here!</p>
-                <v-btn
-                    depressed
-                    round
-                    color="primary"
-                    :loading="this.uploadLoading"
-                    :disabled="this.uploadLoading"
-                    class="uploadButton"
-                >
-                    Upload File
-                    <span slot="loader">Loading...</span>
-                    <input type="file" id="file-input">
-                </v-btn>
-                <p>or</p>
-                <v-btn round depressed color="primary">Record Audio</v-btn>
+            <p id="loading">Loading Model..</p>
+            <div id="loaded">
+                <div class="introduction" :style="introductionHandler">
+                    <p>Upload an audio file and it will show up here!</p>
+                    <v-btn
+                        depressed
+                        round
+                        color="primary"
+                        :loading="this.uploadLoading"
+                        :disabled="this.uploadLoading"
+                        class="uploadButton"
+                    >
+                        Upload File
+                        <span slot="loader">Loading...</span>
+                        <input type="file" id="file-input">
+                    </v-btn>
+                    <p>or</p>
+                    <v-btn round depressed color="primary">Record Audio</v-btn>
+                </div>
             </div>
+
             <div class="visualizerLoader" :style="loadHandler">
                 <!-- <v-progress-circular
                     class="visualizerLoadingCircle"
@@ -130,33 +130,55 @@ export default {
     width: 1000px;
     border-radius: 15px;
     padding: 0;
+    .header {
+        text-align: center;
+        height: 80px;
+        padding: 15px;
+        p {
+            font-size: 20px;
+            margin-top: 8px;
+            i {
+                font-size: 28px;
+            }
+        }
+    }
     .player {
         background: #2a3942;
         width: 100%;
         height: 300px;
         padding: 40px 0;
-        .introduction {
+        #loaded {
             text-align: center;
-            font-size: 20px;
-            width: 60%;
-            margin: auto;
-            font-weight: 300;
-            .uploadButton {
-                // padding: 0;
-                // margin: 0;
-                #file-input {
-                    padding: 18px 60px;
-                    width: 100%;
-                    height: 100%;
-                    position: absolute;
-                    opacity: 0;
-                    // color: rgb(87, 52, 55)
-                    &:hover {
-                        cursor: pointer;
+            display: none;
+            div,
+            p {
+                display: inline-block;
+                margin: 20px;
+            }
+            .introduction {
+                text-align: center;
+                font-size: 20px;
+                width: 60%;
+                margin: auto;
+                font-weight: 300;
+                .uploadButton {
+                    // padding: 0;
+                    // margin: 0;
+                    #file-input {
+                        padding: 18px 60px;
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        opacity: 0;
+                        // color: rgb(87, 52, 55)
+                        &:hover {
+                            cursor: pointer;
+                        }
                     }
                 }
             }
         }
+
         .visualizerLoader {
             text-align: center;
             .visualizerLoadingCircle {
@@ -181,19 +203,6 @@ export default {
             width: 90% !important;
             height: 100% !important;
             margin: auto;
-        }
-    }
-    .header {
-        text-align: center;
-        height: 100px;
-        padding: 15px;
-        #loaded {
-            display: none;
-            div,
-            p {
-                display: inline-block;
-                margin: 20px;
-            }
         }
     }
 }
