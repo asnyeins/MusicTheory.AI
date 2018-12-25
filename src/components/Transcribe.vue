@@ -4,6 +4,16 @@
             <!-- <input id="file-input" type="file"> -->
             <p id="loading">Loading Model..</p>
             <div id="loaded">
+                <p>
+                    <span>
+                        <v-icon color="purple">queue_music</v-icon>
+                    </span>MusicTheory.ai
+                </p>
+            </div>
+        </div>
+        <div class="player">
+            <div class="introduction" :style="introductionHandler">
+                <p>Upload an audio file and it will show up here!</p>
                 <v-btn
                     depressed
                     round
@@ -18,11 +28,6 @@
                 </v-btn>
                 <p>or</p>
                 <v-btn round depressed color="primary">Record Audio</v-btn>
-            </div>
-        </div>
-        <div class="player">
-            <div class="introduction" :style="introductionHandler">
-                <p>This app uses neural networks run through the browser for all of its functionality. Upload a file of a music piece to get started.</p>
             </div>
             <div class="visualizerLoader" :style="loadHandler">
                 <!-- <v-progress-circular
@@ -136,6 +141,21 @@ export default {
             width: 60%;
             margin: auto;
             font-weight: 300;
+            .uploadButton {
+                // padding: 0;
+                // margin: 0;
+                #file-input {
+                    padding: 18px 60px;
+                    width: 100%;
+                    height: 100%;
+                    position: absolute;
+                    opacity: 0;
+                    // color: rgb(87, 52, 55)
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+            }
         }
         .visualizerLoader {
             text-align: center;
@@ -173,21 +193,6 @@ export default {
             p {
                 display: inline-block;
                 margin: 20px;
-            }
-            .uploadButton {
-                // padding: 0;
-                // margin: 0;
-                #file-input {
-                    padding: 18px 60px;
-                    width: 100%;
-                    height: 100%;
-                    position: absolute;
-                    opacity: 0;
-                    // color: rgb(87, 52, 55)
-                    &:hover {
-                        cursor: pointer;
-                    }
-                }
             }
         }
     }
