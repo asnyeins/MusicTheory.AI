@@ -58,17 +58,20 @@
             </div>
             <div class="canvasWrap" :style="canvasHandler">
                 <canvas id="canvas"></canvas>
-                <v-btn
-                    outline
-                    class="playButton"
-                    fab
-                    dark
-                    large
-                    color="primary"
-                    v-if="playerHovered"
-                >
-                    <v-icon dark>play_arrow</v-icon>
-                </v-btn>
+                <!--implement velocityjs/js hooks-->
+                <transition name="fade">
+                    <v-btn
+                        outline
+                        class="playButton"
+                        fab
+                        dark
+                        large
+                        color="primary"
+                        v-if="playerHovered"
+                    >
+                        <v-icon dark>play_arrow</v-icon>
+                    </v-btn>
+                </transition>
             </div>
         </div>
     </div>
@@ -248,7 +251,6 @@ export default {
             width: 90%;
             height: 100%;
             margin: auto;
-
             #canvas {
                 display: block;
                 width: 100% !important;
@@ -256,11 +258,10 @@ export default {
             }
             .playButton {
                 position: absolute;
-                // top: 50%;
-                // left: 50%;
-                // transform: translate(-50%, -50%);
                 top: 240px;
                 right: 47.5%;
+                transition: opacity 0.25s;
+                opacity: 0;
             }
         }
     }
