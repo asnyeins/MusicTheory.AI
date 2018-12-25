@@ -12,7 +12,7 @@
             <div id="loaded">
                 <div class="introduction" :style="introductionHandler">
                     <p>Upload an audio file and it will show up here!</p>
-                    <v-btn
+                    <!-- <v-btn
                         depressed
                         round
                         color="primary"
@@ -25,7 +25,13 @@
                         <input type="file" id="file-input">
                     </v-btn>
                     <p>or</p>
-                    <v-btn round depressed color="primary">Record Audio</v-btn>
+                    <v-btn round depressed color="primary">Record Audio</v-btn>-->
+                    <v-btn outline large fab color="primary" class="uploadButton">
+                        <v-icon>add</v-icon>
+                        <div class="inputWrapper">
+                            <input type="file" id="file-input" title=" ">
+                        </div>
+                    </v-btn>
                 </div>
             </div>
 
@@ -147,12 +153,15 @@ export default {
         width: 100%;
         height: 300px;
         padding: 40px 0;
+        #loading {
+            text-align: center;
+        }
         #loaded {
             text-align: center;
             display: none;
             div,
             p {
-                display: inline-block;
+                // display: inline-block;
                 margin: 20px;
             }
             .introduction {
@@ -162,17 +171,30 @@ export default {
                 margin: auto;
                 font-weight: 300;
                 .uploadButton {
-                    // padding: 0;
-                    // margin: 0;
-                    #file-input {
-                        padding: 18px 60px;
-                        width: 100%;
-                        height: 100%;
-                        position: absolute;
-                        opacity: 0;
-                        // color: rgb(87, 52, 55)
-                        &:hover {
-                            cursor: pointer;
+                    i {
+                        font-size: 40px;
+                        margin-top: -20px;
+                    }
+                    .inputWrapper {
+                        width: 72px;
+                        height: 72px;
+                        margin-top: -35px;
+                        margin-left: 0px;
+                        border-radius: 50%;
+                        display: block;
+                        z-index: 2;
+                        input[type="file"] {
+                            margin-top: 0px;
+                            margin-left: -35px;
+                            opacity: 0;
+                            width: 100%;
+                            height: 100%;
+                            position: absolute;
+                            color: transparent;
+                            font-size: 0;
+                            &:hover {
+                                cursor: pointer;
+                            }
                         }
                     }
                 }
