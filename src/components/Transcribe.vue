@@ -13,7 +13,13 @@
             @mouseover="playerHovered = !playerHovered"
             @mouseout="playerHovered = !playerHovered"
         >
-            <p id="loading">Loading Model..</p>
+            <div id="loading">
+                <div class="musicLoader">
+                    <Loader/>
+                </div>
+                <p>Loading Model..</p>
+            </div>
+
             <div id="loaded">
                 <div class="introduction" :style="introductionHandler">
                     <p>Upload an audio file!</p>
@@ -78,8 +84,14 @@
 </template>
 
 <script>
+import Loader from "./Loader";
+import { setTimeout } from "timers";
+
 export default {
     name: "Transcribe",
+    components: {
+        Loader
+    },
     data() {
         return {
             modelReady: false,
@@ -106,8 +118,11 @@ export default {
     },
     methods: {
         initUI() {
-            document.getElementById("loading").style.display = "none";
-            document.getElementById("loaded").style.display = "block";
+            //Use timeout to smoothen load transition
+            setTimeout(() => {
+                document.getElementById("loading").style.display = "none";
+                document.getElementById("loaded").style.display = "block";
+            }, 1000);
 
             const fileInput = document.getElementById("file-input");
             fileInput.addEventListener("change", e => {
@@ -178,6 +193,12 @@ export default {
         transition: 0.25s;
         #loading {
             text-align: center;
+            margin-top: -40px;
+            p {
+                font-size: 16px;
+                font-weight: 300;
+                margin-top: -30px;
+            }
         }
         #loaded {
             text-align: center;
@@ -193,6 +214,9 @@ export default {
                 width: 60%;
                 margin: auto;
                 font-weight: 300;
+                .musicLoader {
+                    margin: auto;
+                }
                 p {
                     font-size: 16px;
                     font-weight: 300;
