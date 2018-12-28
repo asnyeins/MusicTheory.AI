@@ -123,28 +123,15 @@ export default {
                 Velocity(
                     document.getElementById("loading"),
                     { opacity: 0 },
-                    { display: "none" },
-                    {
-                        duration: 500
-                    }
+                    { display: "none" }
                 );
-                // document.getElementById("loaded").style.display = "block";
-                Velocity(
-                    document.getElementById("loaded"),
-                    { opacity: 1 },
-                    { display: "block" },
-                    {
-                        duration: 500
-                    }
-                );
-                // Velocity(document.getElementById("loading"), "fadeOut", {
-                //     duration: 500
-                // });
-                // document.getElementById("loaded").style.display = "block";
-                // Velocity("fadeIn", {
-                //     duration: 500
-                // });
-                // document.getElementById("loading").style.display = "none";
+                setTimeout(() => {
+                    Velocity(
+                        document.getElementById("loaded"),
+                        { opacity: 1 },
+                        { display: "block" }
+                    );
+                }, 550);
             }, 100);
 
             const fileInput = document.getElementById("file-input");
@@ -156,8 +143,8 @@ export default {
         async transcribeFile(file) {
             const config = {
                 noteHeight: 8,
-                pixelsPerTimeStep: 20, // like a note width
-                noteSpacing: 10,
+                pixelsPerTimeStep: 5, // like a note width
+                noteSpacing: 1,
                 noteRGB: "234, 234, 236",
                 activeNoteRGB: "240, 84, 119"
             };
@@ -304,6 +291,7 @@ export default {
             #canvas {
                 display: block;
                 width: 100% !important;
+                image-rendering: pixelated;
                 height: 100% !important;
             }
             .playButton {
