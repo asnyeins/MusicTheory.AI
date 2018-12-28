@@ -120,9 +120,32 @@ export default {
         initUI() {
             //Use timeout to smoothen load transition
             setTimeout(() => {
-                document.getElementById("loading").style.display = "none";
-                document.getElementById("loaded").style.display = "block";
-            }, 1000);
+                Velocity(
+                    document.getElementById("loading"),
+                    { opacity: 0 },
+                    { display: "none" },
+                    {
+                        duration: 500
+                    }
+                );
+                // document.getElementById("loaded").style.display = "block";
+                Velocity(
+                    document.getElementById("loaded"),
+                    { opacity: 1 },
+                    { display: "block" },
+                    {
+                        duration: 500
+                    }
+                );
+                // Velocity(document.getElementById("loading"), "fadeOut", {
+                //     duration: 500
+                // });
+                // document.getElementById("loaded").style.display = "block";
+                // Velocity("fadeIn", {
+                //     duration: 500
+                // });
+                // document.getElementById("loading").style.display = "none";
+            }, 100);
 
             const fileInput = document.getElementById("file-input");
             fileInput.addEventListener("change", e => {
@@ -191,6 +214,8 @@ export default {
         height: 300px;
         padding: 40px 0;
         transition: 0.25s;
+        .unloaded {
+        }
         #loading {
             text-align: center;
             margin-top: -40px;
@@ -203,6 +228,7 @@ export default {
         #loaded {
             text-align: center;
             display: none;
+            opacity: 0;
             div,
             p {
                 // display: inline-block;
