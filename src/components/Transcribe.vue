@@ -21,38 +21,21 @@
             </div>
 
             <div id="loaded">
-                <div class="introduction" :style="introductionHandler">
-                    <p>Upload an audio file!</p>
-                    <!-- <v-btn
-                        depressed
-                        round
-                        color="primary"
-                        :loading="this.uploadLoading"
-                        :disabled="this.uploadLoading"
-                        class="uploadButton"
-                    >
-                        Upload File
-                        <span slot="loader">Loading...</span>
-                        <input type="file" id="file-input">
-                    </v-btn>-->
+                <div class="introduction">
+                    <p>
+                        Upload an
+                        <span>audio file</span>
+                    </p>
                     <v-btn outline large fab color="primary" class="uploadButton">
                         <v-icon>add</v-icon>
                         <div class="inputWrapper">
-                            <input type="file" id="file-input" title=" ">
+                            <input type="file" id="file-input">
                         </div>
                     </v-btn>
                 </div>
             </div>
 
-            <div class="visualizerLoader" :style="loadHandler">
-                <!-- <v-progress-circular
-                    class="visualizerLoadingCircle"
-                    :size="70"
-                    :width="7"
-                    color="#a53a45"
-                    indeterminate
-                ></v-progress-circular>-->
-                <v-progress-circular class="visualizerLoadingCircle" indeterminate color="primary"></v-progress-circular>
+            <div class="visualizerLoader" id="visualizerLoader">
                 <p>
                     Transcribing
                     <span class="fileName">{{fileName}}</span>...
@@ -62,7 +45,7 @@
                     >Larger files will take longer to transcribe, and may slow down your browser.</span>
                 </p>
             </div>
-            <div class="canvasWrap" :style="canvasHandler">
+            <div class="canvasWrap" id="canvasWrap">
                 <canvas id="canvas"></canvas>
                 <!--implement velocityjs/js hooks-->
                 <transition name="fade">
@@ -96,12 +79,8 @@ export default {
         return {
             modelReady: false,
             model: null,
-            uploadLoading: false,
-            loadHandler: "display: none",
-            introductionHandler: "",
             fileName: "",
             loader: null,
-            canvasHandler: "display: none",
             visualizer: null,
             player: null,
             playerHovered: false
@@ -143,25 +122,41 @@ export default {
         async transcribeFile(file) {
             const config = {
                 noteHeight: 8,
-                pixelsPerTimeStep: 5, // like a note width
+                pixelsPerTimeStep: 5,
                 noteSpacing: 1,
                 noteRGB: "234, 234, 236",
                 activeNoteRGB: "240, 84, 119"
             };
-            this.uploadLoading = !this.uploadLoading;
-            this.introductionHandler = "display: none";
-            this.loadHandler = "display: block";
+            document.getElementById("loaded").style.display = "none";
+            document.getElementById("loaded").style.opacity = "0";
+            // Velocity(
+            //     document.getElementById("loaded"),
+            //     { opacity: 0 },
+            //     { display: "none" }
+            // );
+            Velocity(
+                document.getElementById("visualizerLoader"),
+                { opacity: 1 },
+                { display: "block" }
+            );
             await this.model
                 .transcribeFromAudioFile(file)
                 .then(noteSequence => {
-                    this.canvasHandler = "display: block";
+                    Velocity(
+                        document.getElementById("visualizerLoader"),
+                        { opacity: 0 },
+                        { display: "none" }
+                    );
+                    Velocity(
+                        document.getElementById("canvasWrap"),
+                        { opacity: 1 },
+                        { display: "block" }
+                    );
                     this.visualizer = new mm.Visualizer(
                         noteSequence,
                         document.getElementById("canvas"),
                         config
                     );
-                    this.loadHandler = "display: none";
-                    this.uploadLoading = !this.uploadLoading;
                 });
         },
         playNotes() {
@@ -232,7 +227,11 @@ export default {
                 }
                 p {
                     font-size: 16px;
+                    opacity: 0.8;
                     font-weight: 300;
+                    span {
+                        color: #e342f8;
+                    }
                 }
                 .uploadButton {
                     i {
@@ -267,8 +266,65 @@ export default {
 
         .visualizerLoader {
             text-align: center;
-            .visualizerLoadingCircle {
-                margin-top: 20px;
+            display: none;
+            .loader,
+            .loader:before,
+            .loader:after {
+                background: #ffffff;
+                -webkit-animation: load1 1s infinite ease-in-out;
+                animation: load1 1s infinite ease-in-out;
+                width: 1em;
+                height: 4em;
+            }
+            .loader {
+                color: #ffffff;
+                text-indent: -9999em;
+                margin: 88px auto;
+                position: relative;
+                font-size: 11px;
+                -webkit-transform: translateZ(0);
+                -ms-transform: translateZ(0);
+                transform: translateZ(0);
+                -webkit-animation-delay: -0.16s;
+                animation-delay: -0.16s;
+            }
+            .loader:before,
+            .loader:after {
+                position: absolute;
+                top: 0;
+                content: "";
+            }
+            .loader:before {
+                left: -1.5em;
+                -webkit-animation-delay: -0.32s;
+                animation-delay: -0.32s;
+            }
+            .loader:after {
+                left: 1.5em;
+            }
+            @-webkit-keyframes load1 {
+                0%,
+                80%,
+                100% {
+                    box-shadow: 0 0;
+                    height: 4em;
+                }
+                40% {
+                    box-shadow: 0 -2em;
+                    height: 5em;
+                }
+            }
+            @keyframes load1 {
+                0%,
+                80%,
+                100% {
+                    box-shadow: 0 0;
+                    height: 4em;
+                }
+                40% {
+                    box-shadow: 0 -2em;
+                    height: 5em;
+                }
             }
             p {
                 font-size: 19px;
@@ -288,6 +344,7 @@ export default {
             width: 90%;
             height: 100%;
             margin: auto;
+            display: none;
             #canvas {
                 display: block;
                 width: 100% !important;
