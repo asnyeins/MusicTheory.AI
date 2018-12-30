@@ -129,16 +129,18 @@ export default {
             };
             document.getElementById("loaded").style.display = "none";
             document.getElementById("loaded").style.opacity = "0";
+            document.getElementById("visualizerLoader").style.display = "block";
+            document.getElementById("visualizerLoader").style.opacity = "1";
             // Velocity(
             //     document.getElementById("loaded"),
             //     { opacity: 0 },
             //     { display: "none" }
             // );
-            Velocity(
-                document.getElementById("visualizerLoader"),
-                { opacity: 1 },
-                { display: "block" }
-            );
+            // Velocity(
+            //     document.getElementById("visualizerLoader"),
+            //     { opacity: 1 },
+            //     { display: "block" }
+            // );
             await this.model
                 .transcribeFromAudioFile(file)
                 .then(noteSequence => {
@@ -147,11 +149,14 @@ export default {
                         { opacity: 0 },
                         { display: "none" }
                     );
-                    Velocity(
-                        document.getElementById("canvasWrap"),
-                        { opacity: 1 },
-                        { display: "block" }
-                    );
+                    setTimeout(() => {
+                        Velocity(
+                            document.getElementById("canvasWrap"),
+                            { opacity: 1 },
+                            { display: "block" }
+                        );
+                    }, 500);
+
                     this.visualizer = new mm.Visualizer(
                         noteSequence,
                         document.getElementById("canvas"),
@@ -196,8 +201,6 @@ export default {
         height: 300px;
         padding: 40px 0;
         transition: 0.25s;
-        .unloaded {
-        }
         #loading {
             text-align: center;
             margin-top: -40px;
@@ -345,6 +348,7 @@ export default {
             height: 100%;
             margin: auto;
             display: none;
+            opacity: 0;
             #canvas {
                 display: block;
                 width: 100% !important;
