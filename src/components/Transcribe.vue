@@ -47,7 +47,6 @@
             </div>
             <div class="canvasWrap" id="canvasWrap">
                 <canvas id="canvas"></canvas>
-                <!--implement velocityjs/js hooks-->
                 <transition name="fade">
                     <v-btn
                         outline
@@ -360,7 +359,7 @@ export default {
                 top: 240px;
                 right: 47.5%;
                 transition: opacity 0.25s;
-                opacity: 0;
+                opacity: 1;
             }
         }
     }
